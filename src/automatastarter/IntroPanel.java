@@ -36,14 +36,15 @@ public class IntroPanel extends javax.swing.JPanel {
         GameButton = new javax.swing.JButton();
         infoButton = new javax.swing.JButton();
 
-        GameButton.setText("Game");
+        GameButton.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        GameButton.setText("Start Game");
         GameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GameButtonActionPerformed(evt);
             }
         });
 
-        infoButton.setText("I don't know why I'm here");
+        infoButton.setText("Brians Brain Automata Information");
         infoButton.setToolTipText("");
         infoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,21 +59,21 @@ public class IntroPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
+                        .addGap(99, 99, 99)
                         .addComponent(GameButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
+                        .addGap(91, 91, 91)
                         .addComponent(infoButton)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(GameButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(infoButton)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

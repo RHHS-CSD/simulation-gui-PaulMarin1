@@ -60,10 +60,13 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         switcher = p;
         //create and start a Timer for animation
         animTimer = new Timer(10, new AnimTimerTick());
-        animTimer.start();
+        //animTimer.start();
 
         //set up the key bindings
         setupKeys();
+        
+        gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
+        gridPanel1.brain.randomize();
 
     }
 
@@ -81,7 +84,23 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         this.getInputMap().put(KeyStroke.getKeyStroke("X"), "xKey");
         this.getActionMap().put("xKey", new Move("x"));
     }
+    
+    public void setControls(boolean b){
+        startStopButton.setEnabled(b);
+        speedSlider.setEnabled(b);
+        stepButton.setEnabled(b);
+        resetButton.setEnabled(b);
+        toggleEditButton.setEnabled(b);
+        randomizeButton.setEnabled(b);
+        birthNumberSlider.setEnabled(b);
+        wrappingValue.setEnabled(b);
+        widthValue.setEnabled(b);
+        heightValue.setEnabled(b);
+        applyButton.setEnabled(b);
+        
+    }
 
+    /*
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (img1 != null) {
@@ -89,6 +108,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         }
         g.drawLine(lineX, 0, 300, 300);
     }
+    */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,41 +119,327 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        gridPanel1 = new automatastarter.GridPanel();
+        controlPanel = new javax.swing.JPanel();
+        startStopButton = new javax.swing.JButton();
+        stepButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
+        randomizeButton = new javax.swing.JButton();
+        toggleEditButton = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        speedSlider = new javax.swing.JSlider();
+        speedValue = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        birthNumberValue = new javax.swing.JLabel();
+        birthNumberSlider = new javax.swing.JSlider();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        widthValue = new javax.swing.JTextField();
+        heightValue = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        wrappingValue = new javax.swing.JCheckBox();
+        applyButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
         });
+        setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Game");
+        gridPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addComponent(jLabel1)
-                .addContainerGap(199, Short.MAX_VALUE))
+        javax.swing.GroupLayout gridPanel1Layout = new javax.swing.GroupLayout(gridPanel1);
+        gridPanel1.setLayout(gridPanel1Layout);
+        gridPanel1Layout.setHorizontalGroup(
+            gridPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel1)
-                .addContainerGap(151, Short.MAX_VALUE))
+        gridPanel1Layout.setVerticalGroup(
+            gridPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
+
+        add(gridPanel1, java.awt.BorderLayout.CENTER);
+
+        controlPanel.setBackground(new java.awt.Color(204, 204, 204));
+        controlPanel.setPreferredSize(new java.awt.Dimension(408, 175));
+
+        startStopButton.setText("Start");
+        startStopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startStopButtonActionPerformed(evt);
+            }
+        });
+
+        stepButton.setText("Step");
+        stepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stepButtonActionPerformed(evt);
+            }
+        });
+
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+
+        randomizeButton.setText("Randomize");
+        randomizeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                randomizeButtonActionPerformed(evt);
+            }
+        });
+
+        toggleEditButton.setText("Toggle Edit Mode");
+        toggleEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleEditButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Simulation Speed (ms):");
+
+        speedSlider.setMaximum(1000);
+        speedSlider.setMinimum(10);
+        speedSlider.setValue(10);
+        speedSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                speedSliderStateChanged(evt);
+            }
+        });
+
+        speedValue.setText("10");
+
+        jLabel2.setText("Birth Numbers:");
+
+        birthNumberValue.setText("2");
+
+        birthNumberSlider.setMaximum(7);
+        birthNumberSlider.setMinimum(2);
+        birthNumberSlider.setValue(2);
+        birthNumberSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                birthNumberSliderStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText("Width:");
+
+        jLabel4.setText("Height:");
+
+        widthValue.setText("30");
+        widthValue.setMinimumSize(new java.awt.Dimension(150, 23));
+        widthValue.setPreferredSize(new java.awt.Dimension(100, 23));
+        widthValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                widthValueActionPerformed(evt);
+            }
+        });
+
+        heightValue.setText("20");
+        heightValue.setMinimumSize(new java.awt.Dimension(150, 23));
+        heightValue.setPreferredSize(new java.awt.Dimension(100, 23));
+
+        jLabel5.setText("Wrapping");
+
+        wrappingValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wrappingValueActionPerformed(evt);
+            }
+        });
+
+        applyButton.setText("Apply");
+        applyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(controlPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(wrappingValue)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(controlPanelLayout.createSequentialGroup()
+                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(widthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                .addComponent(startStopButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(stepButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(resetButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(randomizeButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(toggleEditButton))
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(speedValue)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(birthNumberValue)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(birthNumberSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addComponent(applyButton)))
+                .addContainerGap())
+        );
+        controlPanelLayout.setVerticalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startStopButton)
+                    .addComponent(stepButton)
+                    .addComponent(resetButton)
+                    .addComponent(randomizeButton)
+                    .addComponent(toggleEditButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(speedValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(birthNumberValue)
+                    .addComponent(birthNumberSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(wrappingValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(widthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(applyButton)
+                .addContainerGap())
+        );
+
+        add(controlPanel, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         lineX = 0;
     }//GEN-LAST:event_formComponentShown
 
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        gridPanel1.brain.clear();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void widthValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_widthValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_widthValueActionPerformed
+
+    private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed
+        if (animTimer.isRunning()){
+            animTimer.stop();
+            startStopButton.setText("Start");
+            setControls(true);
+        } else {
+            animTimer.setDelay(speedSlider.getValue());
+            animTimer.start();
+            startStopButton.setText("Stop");
+            setControls(false);
+            speedSlider.setEnabled(true);
+            startStopButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_startStopButtonActionPerformed
+
+    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
+        animTimer.setDelay(speedSlider.getValue());
+        gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
+        gridPanel1.brain.randomize();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_applyButtonActionPerformed
+
+    private void birthNumberSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_birthNumberSliderStateChanged
+        birthNumberValue.setText("" + birthNumberSlider.getValue());
+    }//GEN-LAST:event_birthNumberSliderStateChanged
+
+    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        speedValue.setText("" + speedSlider.getValue());
+        animTimer.setDelay(speedSlider.getValue());
+    }//GEN-LAST:event_speedSliderStateChanged
+
+    private void randomizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomizeButtonActionPerformed
+        gridPanel1.brain.randomize();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_randomizeButtonActionPerformed
+
+    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
+        gridPanel1.brain.update();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_stepButtonActionPerformed
+
+    private void wrappingValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wrappingValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wrappingValueActionPerformed
+
+    private void toggleEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleEditButtonActionPerformed
+        if (toggleEditButton.isSelected()){
+            setControls(false);
+            toggleEditButton.setEnabled(true);
+            gridPanel1.setEditMode(true);
+        } else {
+            setControls(true);
+            gridPanel1.setEditMode(false);
+        } 
+    }//GEN-LAST:event_toggleEditButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton applyButton;
+    private javax.swing.JSlider birthNumberSlider;
+    private javax.swing.JLabel birthNumberValue;
+    private javax.swing.JPanel controlPanel;
+    private automatastarter.GridPanel gridPanel1;
+    private javax.swing.JTextField heightValue;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton randomizeButton;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JSlider speedSlider;
+    private javax.swing.JLabel speedValue;
+    private javax.swing.JButton startStopButton;
+    private javax.swing.JButton stepButton;
+    private javax.swing.JToggleButton toggleEditButton;
+    private javax.swing.JTextField widthValue;
+    private javax.swing.JCheckBox wrappingValue;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -218,7 +524,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
-            lineX++;
+            gridPanel1.brain.update();
             //force redraw
             repaint();
         }
