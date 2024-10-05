@@ -102,13 +102,8 @@ public class GridPanel extends javax.swing.JPanel {
             int j = x / min;
             int i = y / min;
             if (i < brain.getHeight() && j < brain.getWidth()) {
-                if (brain.cells[i][j] == Brain.STATES[Brain.OFF]) {
-                    brain.cells[i][j] = Brain.STATES[Brain.ON];
-                } else if (brain.cells[i][j] == Brain.STATES[Brain.ON]) {
-                    brain.cells[i][j] = Brain.STATES[Brain.DYING];
-                } else {
-                    brain.cells[i][j] = Brain.STATES[Brain.OFF];
-                }
+                brain.switchState(i, j);
+                ((GamePanel)getParent()).updateStatus();
                 repaint();
             }
         }

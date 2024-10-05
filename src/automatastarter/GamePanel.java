@@ -67,6 +67,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         
         gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
         gridPanel1.brain.randomize();
+        updateStatus();
 
     }
 
@@ -91,13 +92,20 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         stepButton.setEnabled(b);
         resetButton.setEnabled(b);
         toggleEditButton.setEnabled(b);
-        randomizeButton.setEnabled(b);
+        patternCombo.setEnabled(b);
         birthNumberSlider.setEnabled(b);
         wrappingValue.setEnabled(b);
         widthValue.setEnabled(b);
         heightValue.setEnabled(b);
         applyButton.setEnabled(b);
         
+    }
+    
+    public void updateStatus(){
+        onCellLabel.setText("On Cells: " + gridPanel1.brain.getOnCount());
+        offCellLabel.setText("Off Cells: " + gridPanel1.brain.getOffCount());
+        dyingCellLabel.setText("Dying Cells: " + gridPanel1.brain.getDyingCount());
+        stepLabel.setText("Simulation step: " + gridPanel1.brain.getStepCount());
     }
 
     /*
@@ -119,12 +127,12 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        label1 = new java.awt.Label();
         gridPanel1 = new automatastarter.GridPanel();
         controlPanel = new javax.swing.JPanel();
         startStopButton = new javax.swing.JButton();
         stepButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
-        randomizeButton = new javax.swing.JButton();
         toggleEditButton = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         speedSlider = new javax.swing.JSlider();
@@ -139,6 +147,14 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         jLabel5 = new javax.swing.JLabel();
         wrappingValue = new javax.swing.JCheckBox();
         applyButton = new javax.swing.JButton();
+        onCellLabel = new javax.swing.JLabel();
+        offCellLabel = new javax.swing.JLabel();
+        dyingCellLabel = new javax.swing.JLabel();
+        stepLabel = new javax.swing.JLabel();
+        patternCombo = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+
+        label1.setText("label1");
 
         setBackground(new java.awt.Color(255, 255, 255));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -148,23 +164,21 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         });
         setLayout(new java.awt.BorderLayout());
 
-        gridPanel1.setBackground(new java.awt.Color(204, 204, 204));
-
         javax.swing.GroupLayout gridPanel1Layout = new javax.swing.GroupLayout(gridPanel1);
         gridPanel1.setLayout(gridPanel1Layout);
         gridPanel1Layout.setHorizontalGroup(
             gridPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 558, Short.MAX_VALUE)
         );
         gridPanel1Layout.setVerticalGroup(
             gridPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGap(0, 267, Short.MAX_VALUE)
         );
 
         add(gridPanel1, java.awt.BorderLayout.CENTER);
 
         controlPanel.setBackground(new java.awt.Color(204, 204, 204));
-        controlPanel.setPreferredSize(new java.awt.Dimension(408, 175));
+        controlPanel.setPreferredSize(new java.awt.Dimension(408, 200));
 
         startStopButton.setText("Start");
         startStopButton.addActionListener(new java.awt.event.ActionListener() {
@@ -184,13 +198,6 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetButtonActionPerformed(evt);
-            }
-        });
-
-        randomizeButton.setText("Randomize");
-        randomizeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                randomizeButtonActionPerformed(evt);
             }
         });
 
@@ -259,6 +266,23 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
             }
         });
 
+        onCellLabel.setText("On Cells:");
+
+        offCellLabel.setText("Off Cells:");
+
+        dyingCellLabel.setText("Dying Cells:");
+
+        stepLabel.setText("Simulation Step:");
+
+        patternCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Randomize", "Oscillator", "Linear", "Diagonal", "Expanding" }));
+        patternCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                patternComboActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Set Pattern:");
+
         javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
         controlPanelLayout.setHorizontalGroup(
@@ -267,20 +291,12 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                 .addContainerGap()
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(controlPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wrappingValue)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(controlPanelLayout.createSequentialGroup()
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(controlPanelLayout.createSequentialGroup()
-                                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(widthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(wrappingValue))
+                            .addComponent(onCellLabel)
                             .addGroup(controlPanelLayout.createSequentialGroup()
                                 .addComponent(startStopButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,24 +304,47 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(resetButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(randomizeButton)
+                                .addComponent(toggleEditButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleEditButton))
-                            .addGroup(controlPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(speedValue)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(controlPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(birthNumberValue)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(birthNumberSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                        .addComponent(applyButton)))
-                .addContainerGap())
+                                .addComponent(patternCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(controlPanelLayout.createSequentialGroup()
+                            .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(controlPanelLayout.createSequentialGroup()
+                                    .addComponent(widthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(controlPanelLayout.createSequentialGroup()
+                                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(applyButton)
+                                    .addGap(11, 11, 11))
+                                .addGroup(controlPanelLayout.createSequentialGroup()
+                                    .addGap(93, 93, 93)
+                                    .addComponent(offCellLabel)
+                                    .addGap(62, 62, 62)
+                                    .addComponent(dyingCellLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(stepLabel)
+                                    .addGap(57, 57, 57))))
+                        .addGroup(controlPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(speedValue)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                        .addGroup(controlPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(birthNumberValue)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(birthNumberSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,8 +354,9 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                     .addComponent(startStopButton)
                     .addComponent(stepButton)
                     .addComponent(resetButton)
-                    .addComponent(randomizeButton)
-                    .addComponent(toggleEditButton))
+                    .addComponent(toggleEditButton)
+                    .addComponent(jLabel6)
+                    .addComponent(patternCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -338,12 +378,15 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(applyButton)
-                .addContainerGap())
+                    .addComponent(heightValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(applyButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(onCellLabel)
+                    .addComponent(offCellLabel)
+                    .addComponent(dyingCellLabel)
+                    .addComponent(stepLabel))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         add(controlPanel, java.awt.BorderLayout.SOUTH);
@@ -353,14 +396,53 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         lineX = 0;
     }//GEN-LAST:event_formComponentShown
 
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        gridPanel1.brain.clear();
+    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
+        animTimer.setDelay(speedSlider.getValue());
+        gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
+        gridPanel1.brain.randomize();
+        updateStatus();
         gridPanel1.repaint();
-    }//GEN-LAST:event_resetButtonActionPerformed
+    }//GEN-LAST:event_applyButtonActionPerformed
+
+    private void wrappingValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wrappingValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wrappingValueActionPerformed
 
     private void widthValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_widthValueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_widthValueActionPerformed
+
+    private void birthNumberSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_birthNumberSliderStateChanged
+        birthNumberValue.setText("" + birthNumberSlider.getValue());
+    }//GEN-LAST:event_birthNumberSliderStateChanged
+
+    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        speedValue.setText("" + speedSlider.getValue());
+        animTimer.setDelay(speedSlider.getValue());
+    }//GEN-LAST:event_speedSliderStateChanged
+
+    private void toggleEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleEditButtonActionPerformed
+        if (toggleEditButton.isSelected()){
+            setControls(false);
+            toggleEditButton.setEnabled(true);
+            gridPanel1.setEditMode(true);
+        } else {
+            setControls(true);
+            gridPanel1.setEditMode(false);
+        }
+    }//GEN-LAST:event_toggleEditButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        gridPanel1.brain.clear();
+        updateStatus();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
+        gridPanel1.brain.update();
+        updateStatus();
+        gridPanel1.repaint();
+    }//GEN-LAST:event_stepButtonActionPerformed
 
     private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed
         if (animTimer.isRunning()){
@@ -377,46 +459,22 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         }
     }//GEN-LAST:event_startStopButtonActionPerformed
 
-    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
-        animTimer.setDelay(speedSlider.getValue());
-        gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
-        gridPanel1.brain.randomize();
-        gridPanel1.repaint();
-    }//GEN-LAST:event_applyButtonActionPerformed
-
-    private void birthNumberSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_birthNumberSliderStateChanged
-        birthNumberValue.setText("" + birthNumberSlider.getValue());
-    }//GEN-LAST:event_birthNumberSliderStateChanged
-
-    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
-        speedValue.setText("" + speedSlider.getValue());
-        animTimer.setDelay(speedSlider.getValue());
-    }//GEN-LAST:event_speedSliderStateChanged
-
-    private void randomizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomizeButtonActionPerformed
-        gridPanel1.brain.randomize();
-        gridPanel1.repaint();
-    }//GEN-LAST:event_randomizeButtonActionPerformed
-
-    private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
-        gridPanel1.brain.update();
-        gridPanel1.repaint();
-    }//GEN-LAST:event_stepButtonActionPerformed
-
-    private void wrappingValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wrappingValueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_wrappingValueActionPerformed
-
-    private void toggleEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleEditButtonActionPerformed
-        if (toggleEditButton.isSelected()){
-            setControls(false);
-            toggleEditButton.setEnabled(true);
-            gridPanel1.setEditMode(true);
-        } else {
-            setControls(true);
-            gridPanel1.setEditMode(false);
-        } 
-    }//GEN-LAST:event_toggleEditButtonActionPerformed
+    private void patternComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patternComboActionPerformed
+        if (patternCombo.getSelectedIndex() == 0){
+            gridPanel1.brain.randomize();
+        } else if (patternCombo.getSelectedIndex() == 1){
+            gridPanel1.brain.createOscillator();
+        } else if (patternCombo.getSelectedIndex() == 2){
+            gridPanel1.brain.createLinear();
+        } else if (patternCombo.getSelectedIndex() == 3){
+            gridPanel1.brain.createDiagonal();
+        } else if (patternCombo.getSelectedIndex() == 4){
+            gridPanel1.brain.createExpanding();
+        }
+        
+        updateStatus();
+        gridPanel1.repaint(); 
+    }//GEN-LAST:event_patternComboActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -424,6 +482,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     private javax.swing.JSlider birthNumberSlider;
     private javax.swing.JLabel birthNumberValue;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JLabel dyingCellLabel;
     private automatastarter.GridPanel gridPanel1;
     private javax.swing.JTextField heightValue;
     private javax.swing.JLabel jLabel1;
@@ -431,12 +490,17 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JButton randomizeButton;
+    private javax.swing.JLabel jLabel6;
+    private java.awt.Label label1;
+    private javax.swing.JLabel offCellLabel;
+    private javax.swing.JLabel onCellLabel;
+    private javax.swing.JComboBox<String> patternCombo;
     private javax.swing.JButton resetButton;
     private javax.swing.JSlider speedSlider;
     private javax.swing.JLabel speedValue;
     private javax.swing.JButton startStopButton;
     private javax.swing.JButton stepButton;
+    private javax.swing.JLabel stepLabel;
     private javax.swing.JToggleButton toggleEditButton;
     private javax.swing.JTextField widthValue;
     private javax.swing.JCheckBox wrappingValue;
@@ -525,6 +589,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
             gridPanel1.brain.update();
+            updateStatus();
             //force redraw
             repaint();
         }

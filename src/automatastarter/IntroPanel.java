@@ -7,6 +7,8 @@ package automatastarter;
 
 import utils.CardSwitcher;
 import java.awt.CardLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +23,8 @@ public class IntroPanel extends javax.swing.JPanel {
      */
     public IntroPanel(CardSwitcher p) {
         initComponents();
+        Icon imgIcon = new ImageIcon("oscil.gif");
+        imageLabel.setIcon(imgIcon);
         switcher = p;
     }
 
@@ -33,48 +37,54 @@ public class IntroPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
+        imageLabel = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         GameButton = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         infoButton = new javax.swing.JButton();
 
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("BRIANS BRAIN");
+        jLabel1.setAlignmentX(0.5F);
+        add(jLabel1);
+        add(filler4);
+        add(filler3);
+
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setToolTipText("");
+        imageLabel.setAlignmentX(0.5F);
+        add(imageLabel);
+        add(filler2);
+
         GameButton.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        GameButton.setText("Start Game");
+        GameButton.setText("Start Simulation");
+        GameButton.setAlignmentX(0.5F);
+        GameButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GameButton.setPreferredSize(new java.awt.Dimension(100, 50));
         GameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GameButtonActionPerformed(evt);
             }
         });
+        add(GameButton);
+        add(filler1);
 
+        infoButton.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         infoButton.setText("Brians Brain Automata Information");
         infoButton.setToolTipText("");
+        infoButton.setAlignmentX(0.5F);
         infoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(GameButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(infoButton)))
-                .addContainerGap(105, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(GameButton)
-                .addGap(32, 32, 32)
-                .addComponent(infoButton)
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
+        add(infoButton);
     }// </editor-fold>//GEN-END:initComponents
 
     private void GameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameButtonActionPerformed
@@ -88,6 +98,12 @@ public class IntroPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GameButton;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JButton infoButton;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
