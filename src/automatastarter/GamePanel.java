@@ -50,8 +50,6 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     public GamePanel(CardSwitcher p) {
         initComponents();
 
-        img1 = ImageUtil.loadAndResizeImage("yourFile.jpg", 300, 300);//, WIDTH, HEIGHT)//ImageIO.read(new File("yourFile.jpg"));
-
         this.setFocusable(true);
 
         // tell the program we want to listen to the mouse
@@ -65,8 +63,10 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         //set up the key bindings
         setupKeys();
         
+        // Create and initialise the grid with a random pattern
         gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
         gridPanel1.brain.randomize();
+        // Update all counters in the status bar
         updateStatus();
 
     }
@@ -86,6 +86,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         this.getActionMap().put("xKey", new Move("x"));
     }
     
+    // Enables/disables controls
     public void setControls(boolean b){
         startStopButton.setEnabled(b);
         speedSlider.setEnabled(b);
@@ -101,22 +102,13 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         
     }
     
+    // Updates all counters in the status bar
     public void updateStatus(){
         onCellLabel.setText("On Cells: " + gridPanel1.brain.getOnCount());
         offCellLabel.setText("Off Cells: " + gridPanel1.brain.getOffCount());
         dyingCellLabel.setText("Dying Cells: " + gridPanel1.brain.getDyingCount());
         stepLabel.setText("Simulation step: " + gridPanel1.brain.getStepCount());
     }
-
-    /*
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (img1 != null) {
-            g.drawImage(img1, x, y, this);
-        }
-        g.drawLine(lineX, 0, 300, 300);
-    }
-    */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -397,7 +389,9 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     }//GEN-LAST:event_formComponentShown
 
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
+        // Read the slider value and update the timer
         animTimer.setDelay(speedSlider.getValue());
+        // Recreate the model taking into account all parameter values
         gridPanel1.brain = new Brain(Integer.parseInt(widthValue.getText()), Integer.parseInt(heightValue.getText()), birthNumberSlider.getValue(), wrappingValue.isSelected());
         gridPanel1.brain.randomize();
         updateStatus();
@@ -413,17 +407,23 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     }//GEN-LAST:event_widthValueActionPerformed
 
     private void birthNumberSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_birthNumberSliderStateChanged
+        // Display numeric value for birthNumber slider
         birthNumberValue.setText("" + birthNumberSlider.getValue());
     }//GEN-LAST:event_birthNumberSliderStateChanged
 
     private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        // Display numeric value for speed slider and update the timer        
         speedValue.setText("" + speedSlider.getValue());
         animTimer.setDelay(speedSlider.getValue());
     }//GEN-LAST:event_speedSliderStateChanged
 
     private void toggleEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleEditButtonActionPerformed
+        /* While editing the grid we disable all unnecessary buttons 
+           and set the edit mode when the toggle button is pressed
+        */
         if (toggleEditButton.isSelected()){
             setControls(false);
+            // Enable just the edit button
             toggleEditButton.setEnabled(true);
             gridPanel1.setEditMode(true);
         } else {
@@ -433,18 +433,23 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     }//GEN-LAST:event_toggleEditButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // Clear the grid and update the status bar
         gridPanel1.brain.clear();
         updateStatus();
         gridPanel1.repaint();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepButtonActionPerformed
+        // Run a single simulation step
         gridPanel1.brain.update();
         updateStatus();
         gridPanel1.repaint();
     }//GEN-LAST:event_stepButtonActionPerformed
 
     private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed
+        /* While the simulation is running disable unnecessary buttons.
+           Button text switches between start/stop 
+        */
         if (animTimer.isRunning()){
             animTimer.stop();
             startStopButton.setText("Start");
@@ -460,18 +465,26 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     }//GEN-LAST:event_startStopButtonActionPerformed
 
     private void patternComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patternComboActionPerformed
-        if (patternCombo.getSelectedIndex() == 0){
-            gridPanel1.brain.randomize();
-        } else if (patternCombo.getSelectedIndex() == 1){
-            gridPanel1.brain.createOscillator();
-        } else if (patternCombo.getSelectedIndex() == 2){
-            gridPanel1.brain.createLinear();
-        } else if (patternCombo.getSelectedIndex() == 3){
-            gridPanel1.brain.createDiagonal();
-        } else if (patternCombo.getSelectedIndex() == 4){
-            gridPanel1.brain.createExpanding();
+        // Initialise the grid with the selected pattern
+        switch (patternCombo.getSelectedIndex()) {
+            case 0:
+                gridPanel1.brain.randomize();
+                break;
+            case 1:
+                gridPanel1.brain.createOscillator();
+                break;
+            case 2:
+                gridPanel1.brain.createLinear();
+                break;
+            case 3:
+                gridPanel1.brain.createDiagonal();
+                break;
+            case 4:
+                gridPanel1.brain.createExpanding();
+                break;
         }
         
+        // Update accordingly
         updateStatus();
         gridPanel1.repaint(); 
     }//GEN-LAST:event_patternComboActionPerformed

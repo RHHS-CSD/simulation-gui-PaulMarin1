@@ -23,6 +23,7 @@ public class IntroPanel extends javax.swing.JPanel {
      */
     public IntroPanel(CardSwitcher p) {
         initComponents();
+        // Load in the animated image
         Icon imgIcon = new ImageIcon("oscil.gif");
         imageLabel.setIcon(imgIcon);
         switcher = p;

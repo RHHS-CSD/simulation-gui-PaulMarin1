@@ -33,7 +33,16 @@ public class InfoPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+
+        setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(0, 28));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -41,23 +50,19 @@ public class InfoPanel extends javax.swing.JPanel {
                 backButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(backButton, java.awt.BorderLayout.EAST);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(backButton)
-                .addContainerGap(187, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(backButton)
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
+        add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("HISTORY:\nBrian's Brain is a cellular automaton devised by Brian Silverman in the mid 1990’s which is similar to Conway's Game of Life. \n\nRULES:\nEach cell has three possible states: on, off, and dying represented by red, black and orange respectively. Each cell is considered to have eight neighbors (Moore neighborhood). The simulation is controlled by a numeric parameter Birth Number, default value 2.  \n\nAt each simulation step:\n- An off cell turns on if it has exactly Birth Number neighbors that are on\n- An on cell always turns to dying\n- A dying cell always turns off\n\nINSTRUCTIONS:\nTo start the simulation click the start simulation button. \nThe simulation screen displays the grid at the top and simulation control parameters underneath.\nAt the bottom of the screen there are counters for each of the cell states as well as a simulation step counter.\n\nCONTROLS:\nStart/Stop button: starts or stops a simulation run. When a simulation is running the steps are automatically updated every number of milliseconds indicated by the speed slider\n\nStep button: when a simulation is not running the step button allows the user to advance the simulation step by step\n\nReset button: resets a simulation by switching all cells to off\n\nToggle Edit mode button: allows manual editing of the cells. When the button is toggled a mouse click in a cell will cycle through its possible states\n\nSet Pattern combo box: selecting a preset pattern will reset the simulation to the specified pattern.\nPatterns are described further below.\n\nSpeed Slider: controls the speed in milliseconds of a running simulation. Changes are immediately reflected in the simulation\n\nBirth Numbers slider: sets the birthNumber parameter value (2 - 7) inclusive\n\nWrapping checkbox: if checked the grid wraps around both horizontally and vertically\n\nWidth and Height fields: control the size of the simulation grid. Exceedingly large values are not recommended (above couple hundreds)\n\nApply Button: only changes in the speed slider are immediately reflected in the simulation. All other changes require clicking this button to take effect.\n\nPATTERNS:\nRandomize: randomly initializes the cells with on or off states\n\nOscillator: creates a three step oscillator as seen in the main screen\n\nLinear: creates a stable pattern (worm) that moves horizontally\n\nDiagonal: creates a cyclical pattern that moves diagonally\n\nExpanding: creates an expanding pattern that results in interesting simulations");
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -67,5 +72,8 @@ public class InfoPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

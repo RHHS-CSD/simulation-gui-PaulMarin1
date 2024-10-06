@@ -58,6 +58,7 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
                 gp.requestFocusInWindow();
             }
         });
+        // Set the title
         setTitle("Brian's Brain");
     }
 

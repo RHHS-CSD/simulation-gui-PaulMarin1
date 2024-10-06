@@ -12,6 +12,7 @@ import java.awt.Graphics;
  * @author paul
  */
 public class GridPanel extends javax.swing.JPanel {
+    // Initialse variables
     public Brain brain;
     private boolean editMode;
     private int min;
@@ -23,6 +24,7 @@ public class GridPanel extends javax.swing.JPanel {
         initComponents();
     }
     
+    // setters
     public void setBrain(Brain brain){
         this.brain = brain;
     }
@@ -33,15 +35,20 @@ public class GridPanel extends javax.swing.JPanel {
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        // This line is necessary to address issues in netBeans design mode
         if (brain == null || getWidth() == 0) return;
         int width = getWidth();
         int height = getHeight();
+        
+        // Calculate the cell size and make sure it is square
         int cellWidth = width/brain.getWidth();
         int cellHeight = height/brain.getHeight();
         min = (cellWidth > cellHeight) ? cellHeight : cellWidth;
         
+        // Erase the grid
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, brain.getWidth() * min, brain.getHeight() * min);
+        
         // Iterate through the grid
         for (int i = 0; i < brain.cells.length; i++) {
             for (int j = 0; j < brain.cells[i].length; j++) {
@@ -49,11 +56,9 @@ public class GridPanel extends javax.swing.JPanel {
                 if (brain.cells[i][j] == Brain.STATES[Brain.ON]) {
                     g.setColor(Color.RED);
                     g.fillRect(j * min, i * min, min, min);
-                    //g.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
                 } else if (brain.cells[i][j] == Brain.STATES[Brain.DYING]){
                     g.setColor(Color.ORANGE);
                     g.fillRect(j * min, i * min, min, min);
-                    //g.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
                 } 
                 
             }
@@ -96,19 +101,21 @@ public class GridPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseClicked
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // When we click on a cell on the grid we toggle between its states
         if (editMode) {
+            // Find the cell clicked
             int x = evt.getX();
             int y = evt.getY();
             int j = x / min;
             int i = y / min;
             if (i < brain.getHeight() && j < brain.getWidth()) {
+                // If the click is on a cell, toggle it
                 brain.switchState(i, j);
                 ((GamePanel)getParent()).updateStatus();
                 repaint();
             }
         }
     }//GEN-LAST:event_formMousePressed
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

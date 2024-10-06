@@ -94,19 +94,6 @@ public class Brain {
         }
     }
     
-    // Prints out the grid to the console
-    private void display() {
-        // Iterate through the grid
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                //print each cell in the row
-                System.out.print(" " + cells[i][j]);
-            }
-            // Create a new line to display the next row of the grid
-            System.out.println();
-        }
-    }
-    
     // Moves to the next step of the simulation
     public void update() {
         /* It is not possible to update all cells in one pass through the grid so
@@ -122,7 +109,9 @@ public class Brain {
             for (int j = 0; j < cells[i].length; j++) {
                 if (cells[i][j] == ' '){
                     if (countNeighbors(i, j) == birthNumber){
-                        // If the cell is OFF and the number of ON neighbors exceeds the birth number we mark it to be turned ON
+                        /* If the cell is OFF and the number of ON neighbors is equal to 
+                        the birth number we mark it to be turned ON
+                        */
                         cells[i][j] = STATES[NEW];
                     }
                 }
@@ -185,23 +174,6 @@ public class Brain {
         return count;
     }
     
-    // Checks if all cells are turned OFF
-    /*
-    private boolean isDead(){
-        boolean dead = true;
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                if (cells[i][j] != STATES[OFF]){
-                    // If there is any cell that is not OFF we return
-                    return false;
-                }
-            }
-        }
-        System.out.println("No cells left ON, simulation ended!");
-        return dead;
-    }
-    */
-    
     // Sets all cells to off state
     public void clear(){
         // Reset all counters
@@ -212,11 +184,13 @@ public class Brain {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j] = STATES[OFF];
+                // Increment the number of off cells accordingly
                 offCount++;
             }
         }
     }
     
+    // Switches a given cell to the next state
     public void switchState(int i, int j){
         if (cells[i][j] == Brain.STATES[Brain.OFF]) {
             cells[i][j] = Brain.STATES[Brain.ON];
@@ -233,6 +207,7 @@ public class Brain {
         }  
     }
     
+    // Copies a pattern to the center of the grid
     private void copyPattern(char[][] pattern){
         // Calculate top right corner of pattern to be centered
         int row = (height - pattern.length) / 2;
@@ -246,6 +221,9 @@ public class Brain {
             }
         }
     }
+    
+    // The create* methods initialise the grid with the specific pattern
+    
     public void createOscillator() {
         // Make sure grid is clear
         clear();
@@ -299,6 +277,7 @@ public class Brain {
     }
 
   
+    // Getters
     
     public int getWidth(){
         return width;
@@ -323,28 +302,5 @@ public class Brain {
     public int getStepCount(){
         return stepCount;
     }
-    
-    /*  
-    // Simulation engine
-    public static void main(String[] args) {
-        getParameters();
-        char[][] brain = new char[height][width];
-        generate(brain);
-        
-        while (true) {
-            display(brain);
-            
-            if (isDead(brain)){
-                // if all cells are OFF we no longer prompt the user to continue
-                break;
-            }
-
-            if (getInput()) {
-                break;
-            }
-            update(brain);
-        }
-    }
-    */
 }
 
