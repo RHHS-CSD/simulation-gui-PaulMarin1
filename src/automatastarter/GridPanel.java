@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- *
+ * Panel that displays the simulation grid
  * @author paul
  */
 public class GridPanel extends javax.swing.JPanel {
@@ -24,15 +24,23 @@ public class GridPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    // setters
+    /**
+     * Associates a data model with the display grid
+     * @param brain the data model 
+     */
     public void setBrain(Brain brain){
         this.brain = brain;
     }
     
+    /**
+     * Toggles edit mode
+     * @param b if true edit mode is enabled
+     */
     public void setEditMode(boolean b){
         editMode = b;
     }
     
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         // This line is necessary to address issues in netBeans design mode

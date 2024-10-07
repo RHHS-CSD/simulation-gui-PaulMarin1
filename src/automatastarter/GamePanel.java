@@ -86,7 +86,10 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         this.getActionMap().put("xKey", new Move("x"));
     }
     
-    // Enables/disables controls
+    /**
+     * Enables/Disables all controls
+     * @param b if true all controls are enabled
+     */
     public void setControls(boolean b){
         startStopButton.setEnabled(b);
         speedSlider.setEnabled(b);
@@ -102,7 +105,9 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         
     }
     
-    // Updates all counters in the status bar
+    /**
+     * Updates all counters in the status bar
+     */
     public void updateStatus(){
         onCellLabel.setText("On Cells: " + gridPanel1.brain.getOnCount());
         offCellLabel.setText("Off Cells: " + gridPanel1.brain.getOffCount());
@@ -598,7 +603,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
      * animation timer clicks.
      */
     private class AnimTimerTick implements ActionListener {
-
+        
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
             gridPanel1.brain.update();

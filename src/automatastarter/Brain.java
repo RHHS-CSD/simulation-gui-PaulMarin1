@@ -5,7 +5,7 @@
 package automatastarter;
 
 /**
- *
+ * The data model for Brian's Brain simulation
  * @author paul
  */
 /*
@@ -59,6 +59,14 @@ public class Brain {
     private int dyingCount;
     private int stepCount;
     
+    /**
+     * Constructor, creates a brain simulation given the parameter values
+     * @param width the width of the grid
+     * @param height the height of the grid
+     * @param birthNumber the number of neighboring cells that must be on in 
+     *                    order an off cell on
+     * @param wrapping if true the grid wraps both horizontally and vertically
+     */
     public Brain(int width, int height, int birthNumber, boolean wrapping){
         this.width = width;
         this.height = height;
@@ -72,7 +80,9 @@ public class Brain {
         clear();
     }
     
-    // Randomly populates the simulation grid
+    /**
+     * Initialize the simulation with a random pattern
+     */
     public void randomize() {
         // Reset all counters to zero
         onCount = 0;
@@ -94,7 +104,9 @@ public class Brain {
         }
     }
     
-    // Moves to the next step of the simulation
+    /**
+     * Advance the simulation by one step
+     */
     public void update() {
         /* It is not possible to update all cells in one pass through the grid so
             we have to do it in multiple steps
@@ -174,7 +186,9 @@ public class Brain {
         return count;
     }
     
-    // Sets all cells to off state
+    /**
+     * Reset all cells to off state
+     */
     public void clear(){
         // Reset all counters
         onCount = 0;
@@ -190,7 +204,11 @@ public class Brain {
         }
     }
     
-    // Switches a given cell to the next state
+    /**
+     * Cycles through the states of a given cell
+     * @param i the cell row
+     * @param j the cell column
+     */
     public void switchState(int i, int j){
         if (cells[i][j] == Brain.STATES[Brain.OFF]) {
             cells[i][j] = Brain.STATES[Brain.ON];
@@ -222,8 +240,9 @@ public class Brain {
         }
     }
     
-    // The create* methods initialise the grid with the specific pattern
-    
+    /**
+     * Initializes the grid with an oscillator pattern
+     */
     public void createOscillator() {
         // Make sure grid is clear
         clear();
@@ -236,7 +255,10 @@ public class Brain {
         
         copyPattern(OSCILLATOR);
     }
-
+    
+     /**
+     * Initializes the grid with a static, horizontally moving pattern
+     */
     public void createLinear() {
         // Make sure grid is clear
         clear();
@@ -249,7 +271,10 @@ public class Brain {
 
         copyPattern(LINEAR);
     }
-
+    
+    /**
+     * Initializes the grid with a cyclical, diagonally moving pattern
+     */
     public void createDiagonal() {
         // Make sure grid is clear
         clear();
@@ -262,7 +287,10 @@ public class Brain {
 
         copyPattern(DIAGONAL);
     }
-
+    
+    /**
+     * Initializes the grid with an interesting evolving pattern
+     */
     public void createExpanding() {
         // Make sure grid is clear
         clear();
@@ -277,28 +305,51 @@ public class Brain {
     }
 
   
-    // Getters
     
+    /**
+     * Returns the width of the grid
+     * @return the width of the grid
+     */
     public int getWidth(){
         return width;
     }
-
+    
+    /**
+     * Returns the height of the grid
+     * @return the height of the grid
+     */
     public int getHeight(){
         return height;
     }
     
+    /**
+     * Returns the number of cells with off status
+     * @return the number of off cells
+     */
     public int getOffCount(){
         return offCount;
     }
     
+    /**
+     * Returns the number of cells with on status
+     * @return the number of on cells
+     */
     public int getOnCount(){
         return onCount;
     }
-        
+    
+    /**
+     * Returns the number of cells with dying status
+     * @return the number of dying cells
+     */
     public int getDyingCount(){
         return dyingCount;
     }
     
+    /**
+     * Returns the current simulation step
+     * @return the simulation step
+     */
     public int getStepCount(){
         return stepCount;
     }
